@@ -3,16 +3,15 @@ const SHOW_TIME = 13000
 
 const panels = document.getElementsByClassName("panel")
 let current = -1
-let version = ""
+const version = "0.1"
 
 const next = () => {
 	fetch("version.txt")
-		.then(r => {
-			console.log(r)
-			if (version == "") {
-				version = r
-			} else if (version != r) {
-				window.location.reload()
+		.then(r => r.text())
+		.then(t => {
+			if (version != t) {
+				console.log("Found new version, reloading")
+				window.location.reload(true)
 			}
 		})
 	
