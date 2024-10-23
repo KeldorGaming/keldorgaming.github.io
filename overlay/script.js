@@ -6,9 +6,15 @@ let current = -1
 let version = ""
 
 const next = () => {
-	let r = await fetch("version.txt")
-	
-	console.log(r)
+	fetch("version.txt")
+		.then(r => {
+			console.log(r)
+			if (version == "") {
+				version = r
+			} else if (version != r) {
+				window.location.reload()
+			}
+		})
 	
 	current = (current + 1) % panels.length
 	let panel = panels[current]
